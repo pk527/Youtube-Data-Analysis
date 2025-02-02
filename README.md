@@ -40,66 +40,39 @@ This project aims to securely manage, streamline, and analyze structured and sem
 
 ## Data Flow Diagram
 Our Data Architecture
+```mermaid
+graph TD;
+    A[Source Systems] -->|Bulk Load| B[S3 API];
+    B --> C[Data Lake];
+    C -->|Raw Data| D[S3 Landing Area];
+    C -->|Cleansed Data| E[S3 Cleansed / Enriched];
+    C -->|Analytics Data| F[S3 Analytics / Reporting];
 
-Source Systems
-   |
-   |--> Bulk (S3 API)
-           |
-           v
-   --------------------------
-   |      Data Platform      |
-   |  --------------------   |
-   |  |      Data Lake   |   |
-   |  |-----------------|   |
-   |  |  S3 Landing     |   |
-   |  |  Area          |   |
-   |  |---------------|   |
-   |  |  S3 Cleansed  |   |
-   |  |  / Enriched   |   |
-   |  |---------------|   |
-   |  |  S3 Analytics |   |
-   |  |  / Reporting  |   |
-   |  --------------------   |
-   |                        |
-   |  --------------------   |
-   |  |  Data Processing  |  |
-   |  |------------------|  |
-   |  |  AWS Glue       |  |
-   |  |  AWS Lambda    |  |
-   |  --------------------   |
-   |                        |
-   |  --------------------   |
-   |  | Data Catalogue   |  |
-   |  | & Classification|  |
-   |  |------------------|  |
-   |  | AWS Glue Data   |  |
-   |  | Catalog        |  |
-   |  --------------------   |
-   --------------------------
+    D -->|Processing| G[AWS Glue];
+    E -->|Processing| G;
+    F -->|Processing| G;
+    G -->|Data Processing| H[AWS Lambda];
 
-        AWS Step Functions
-                |
-                v
-   -----------------------------
-   |        Data Flow          |
-   -----------------------------
+    H -->|Cataloging| I[AWS Glue Data Catalog];
+    I -->|Data Classification| J[Data Catalogue & Classification];
 
-   API --> Analytical Data Access
-             |--> AWS Athena
-             |--> Redshift (Optional)
+    J -->|Query & Access| K[AWS Athena];
+    K -->|Optional| L[Redshift];
 
-   AWS Identity & Access Management
+    L -->|Visualization| M[Power BI];
+    
 
-   AWS CloudWatch (Monitoring / Alert)
-
-   Target Systems (Analytics)
-     |--> Notebooks (Optional)
-     |--> QuickSight
-     |--> Power BI (Optional)
-     |--> Qlik
-
-* Not all target services will be used.
+    P[AWS Step Functions] -->|Orchestration| G;
+    Q[AWS IAM] -->|Access Management| J;
+    R[AWS CloudWatch] -->|Monitoring & Alerts| Q;
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px;
+    style C fill:#bbf,stroke:#333,stroke-width:2px;
+    style G fill:#bfb,stroke:#333,stroke-width:2px;
+    style J fill:#ffb,stroke:#333,stroke-width:2px;
+    style K fill:#fbb,stroke:#333,stroke-width:2px;
 ```
+
 ### 5. Reporting and Analytics
 - Business intelligence tools such as QuickSight, Power BI, and Qlik generate insights.
 - Engagement metrics like views, likes, and comments are analyzed for trend patterns.
