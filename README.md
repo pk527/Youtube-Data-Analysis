@@ -104,6 +104,7 @@ graph TD;
 
     F2 --> H1
     B --> H2
+```
 ### 5. Reporting and Analytics
 - Business intelligence tools such as QuickSight, Power BI, and Qlik generate insights.
 - Engagement metrics like views, likes, and comments are analyzed for trend patterns.
