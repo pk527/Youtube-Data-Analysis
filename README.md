@@ -35,6 +35,48 @@ This project aims to securely manage, streamline, and analyze structured and sem
 - AWS Athena allows querying the structured dataset.
 - Redshift (optional) can be used for large-scale data storage and analysis.
 
+### 5. Data Architecture
+{
+  "Data Architecture": {
+    "Data Platform": {
+      "Data Lake": {
+        "Landing Area": "S3",
+        "Cleansed / Enriched": "S3",
+        "Analytics / Reporting": "S3"
+      },
+      "Data Processing": {
+        "AWS Glue": {},
+        "AWS Lambda": {}
+      },
+      "Data Catalogue & Classification": {
+        "AWS Glue Data Catalog": {}
+      },
+      "Analytical Data Access": {
+        "API": {},
+        "AWS Athena": {},
+        "Redshift (Optional)": {}
+      }
+    },
+    "Source Systems": {
+      "Bulk": "S3 API"
+    },
+    "AWS Step Functions": {},
+    "AWS Identity & Access Management": {},
+    "Monitoring / Alert": {
+      "AWS Cloudwatch": {}
+    },
+    "Target Systems": {
+      "Analytics": {
+        "Notebooks (Optional)": {},
+        "QuickSight": {},
+        "Power BI (Optional)": {},
+        "Qlik": {}
+      }
+    }
+  }
+}
+
+
 ### 5. Reporting and Analytics
 - Business intelligence tools such as QuickSight, Power BI, and Qlik generate insights.
 - Engagement metrics like views, likes, and comments are analyzed for trend patterns.
@@ -63,4 +105,7 @@ The dashboard provides detailed visualizations and analysis on the following:
 
 ## Conclusion
 This project successfully integrates YouTube trending data into a scalable AWS-based data pipeline, enabling efficient storage, processing, and analysis. The insights derived from the dashboard provide valuable information to content creators, businesses, and analysts. By leveraging AWS Glue, Lambda, Athena, and visualization tools like Power BI, the system ensures effective data handling and reporting. The results offer actionable insights for optimizing content strategies, identifying trends, and understanding regional engagement patterns.
+
+## Dataset
+https://www.kaggle.com/datasets/datasnaek/youtube-new?resource=download
 
