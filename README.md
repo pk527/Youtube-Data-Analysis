@@ -39,71 +39,66 @@ This project aims to securely manage, streamline, and analyze structured and sem
 # Our Data Architecture
 
 ## Data Flow Diagram
+Our Data Architecture
 
-```mermaid
-graph TD;
-    
-    %% Source Systems %%
-    A[Source Systems] -->|S3 API| B(Bulk)
+Source Systems
+   |
+   |--> Bulk (S3 API)
+           |
+           v
+   --------------------------
+   |      Data Platform      |
+   |  --------------------   |
+   |  |      Data Lake   |   |
+   |  |-----------------|   |
+   |  |  S3 Landing     |   |
+   |  |  Area          |   |
+   |  |---------------|   |
+   |  |  S3 Cleansed  |   |
+   |  |  / Enriched   |   |
+   |  |---------------|   |
+   |  |  S3 Analytics |   |
+   |  |  / Reporting  |   |
+   |  --------------------   |
+   |                        |
+   |  --------------------   |
+   |  |  Data Processing  |  |
+   |  |------------------|  |
+   |  |  AWS Glue       |  |
+   |  |  AWS Lambda    |  |
+   |  --------------------   |
+   |                        |
+   |  --------------------   |
+   |  | Data Catalogue   |  |
+   |  | & Classification|  |
+   |  |------------------|  |
+   |  | AWS Glue Data   |  |
+   |  | Catalog        |  |
+   |  --------------------   |
+   --------------------------
 
-    %% Data Platform %%
-    subgraph Data Platform
-        subgraph Data Lake
-            C1[Landing Area (S3)]
-            C2[Cleansed / Enriched (S3)]
-            C3[Analytics / Reporting (S3)]
-        end
-        
-        subgraph Data Processing
-            D1[AWS Glue]
-            D2[AWS Lambda]
-        end
-        
-        subgraph Data Catalogue & Classification
-            E1[AWS Glue Data Catalog]
-        end
-    end
+        AWS Step Functions
+                |
+                v
+   -----------------------------
+   |        Data Flow          |
+   -----------------------------
 
-    %% Data Flow Connections %%
-    B --> C1
-    C1 --> D1
-    D1 --> C2
-    C2 --> D2
-    D2 --> C3
-    C3 --> E1
+   API --> Analytical Data Access
+             |--> AWS Athena
+             |--> Redshift (Optional)
 
-    %% Analytical Data Access %%
-    subgraph Analytical Data Access
-        F1[API]
-        F2[AWS Athena]
-        F3[Redshift (Optional)]
-    end
+   AWS Identity & Access Management
 
-    C3 -->|Processed Data| F1
-    F1 --> F2
-    F2 --> F3
+   AWS CloudWatch (Monitoring / Alert)
 
-    %% Target Systems %%
-    subgraph Target Systems
-        G1[Notebooks (Optional)]
-        G2[QuickSight]
-        G3[Power BI (Optional)]
-        G4[Qlik]
-    end
-    
-    F2 -->|Query| G1
-    F2 -->|BI Reports| G2
-    F3 -->|Reports| G3
-    F3 -->|Dashboards| G4
+   Target Systems (Analytics)
+     |--> Notebooks (Optional)
+     |--> QuickSight
+     |--> Power BI (Optional)
+     |--> Qlik
 
-    %% Monitoring & Security %%
-    subgraph Monitoring / Security
-        H1[AWS CloudWatch]
-        H2[AWS IAM]
-    end
-
-    F2 --> H1
-    B --> H2
+* Not all target services will be used.
 ```
 ### 5. Reporting and Analytics
 - Business intelligence tools such as QuickSight, Power BI, and Qlik generate insights.
