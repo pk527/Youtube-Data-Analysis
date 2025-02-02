@@ -36,31 +36,74 @@ This project aims to securely manage, streamline, and analyze structured and sem
 - Redshift (optional) can be used for large-scale data storage and analysis.
 
 ### 5. Data Architecture
+# Our Data Architecture
 
-    A[Source Systems] --> B[Bulk (S3 API)];
-    B --> C[Data Lake];
-    C --> C1[Landing Area (S3)];
-    C1 --> C2[Cleansed / Enriched (S3)];
-    C2 --> C3[Analytics / Reporting (S3)];
-    C3 --> D[Data Processing];
-    D --> D1[AWS Glue];
-    D --> D2[AWS Lambda];
-    D --> E[Data Catalogue & Classification];
-    E --> E1[AWS Glue Data Catalog];
-    E1 --> F[Analytical Data Access];
-    F --> F1[API];
-    F --> F2[AWS Athena];
-    F --> F3[Redshift (Optional)];
-    F --> G[Target Systems];
-    G --> G1[Notebooks (Optional)];
-    G --> G2[QuickSight];
-    G --> G3[Power BI (Optional)];
-    G --> G4[Qlik];
-    A --> H[AWS Step Functions];
-    H --> I[AWS Identity & Access Management];
-    I --> J[Monitoring / Alert];
-    J --> J1[AWS Cloudwatch];
+## Data Flow Diagram
 
+```mermaid
+graph TD;
+    
+    %% Source Systems %%
+    A[Source Systems] -->|S3 API| B(Bulk)
+
+    %% Data Platform %%
+    subgraph Data Platform
+        subgraph Data Lake
+            C1[Landing Area (S3)]
+            C2[Cleansed / Enriched (S3)]
+            C3[Analytics / Reporting (S3)]
+        end
+        
+        subgraph Data Processing
+            D1[AWS Glue]
+            D2[AWS Lambda]
+        end
+        
+        subgraph Data Catalogue & Classification
+            E1[AWS Glue Data Catalog]
+        end
+    end
+
+    %% Data Flow Connections %%
+    B --> C1
+    C1 --> D1
+    D1 --> C2
+    C2 --> D2
+    D2 --> C3
+    C3 --> E1
+
+    %% Analytical Data Access %%
+    subgraph Analytical Data Access
+        F1[API]
+        F2[AWS Athena]
+        F3[Redshift (Optional)]
+    end
+
+    C3 -->|Processed Data| F1
+    F1 --> F2
+    F2 --> F3
+
+    %% Target Systems %%
+    subgraph Target Systems
+        G1[Notebooks (Optional)]
+        G2[QuickSight]
+        G3[Power BI (Optional)]
+        G4[Qlik]
+    end
+    
+    F2 -->|Query| G1
+    F2 -->|BI Reports| G2
+    F3 -->|Reports| G3
+    F3 -->|Dashboards| G4
+
+    %% Monitoring & Security %%
+    subgraph Monitoring / Security
+        H1[AWS CloudWatch]
+        H2[AWS IAM]
+    end
+
+    F2 --> H1
+    B --> H2
 ### 5. Reporting and Analytics
 - Business intelligence tools such as QuickSight, Power BI, and Qlik generate insights.
 - Engagement metrics like views, likes, and comments are analyzed for trend patterns.
