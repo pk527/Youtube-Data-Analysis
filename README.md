@@ -40,6 +40,7 @@ This project aims to securely manage, streamline, and analyze structured and sem
 - Engagement metrics like views, likes, and comments are analyzed for trend patterns.
 
 ## Dashboard Insights
+<img width="1280" alt="Screenshot 2025-02-02 182856"  src ="https://github.com/user-attachments/assets/5bb94cd6-3c55-41ec-9036-bb9d23e96bf3">
 The dashboard provides detailed visualizations and analysis on the following:
 - **Total Views, Likes, and Trending Rank**: Overview of total engagement across different categories.
 - **Engagement by Video Category**: Comparison of video types and their popularity.
