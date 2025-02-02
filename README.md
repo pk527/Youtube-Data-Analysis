@@ -36,45 +36,82 @@ This project aims to securely manage, streamline, and analyze structured and sem
 - Redshift (optional) can be used for large-scale data storage and analysis.
 
 ### 5. Data Architecture
-{
-  "Data Architecture": {
-    "Data Platform": {
-      "Data Lake": {
-        "Landing Area": "S3",
-        "Cleansed / Enriched": "S3",
-        "Analytics / Reporting": "S3"
-      },
-      "Data Processing": {
-        "AWS Glue": {},
-        "AWS Lambda": {}
-      },
-      "Data Catalogue & Classification": {
-        "AWS Glue Data Catalog": {}
-      },
-      "Analytical Data Access": {
-        "API": {},
-        "AWS Athena": {},
-        "Redshift (Optional)": {}
-      }
-    },
-    "Source Systems": {
-      "Bulk": "S3 API"
-    },
-    "AWS Step Functions": {},
-    "AWS Identity & Access Management": {},
-    "Monitoring / Alert": {
-      "AWS Cloudwatch": {}
-    },
-    "Target Systems": {
-      "Analytics": {
-        "Notebooks (Optional)": {},
-        "QuickSight": {},
-        "Power BI (Optional)": {},
-        "Qlik": {}
-      }
-    }
-  }
-}
++-------------------------+
+|     Data Architecture    |
++-------------------------+
+          |
+          v
++-------------------------+
+|      Data Platform       |
++-------------------------+
+          |
+          v
++---------------------------+
+|        Data Lake          |
++---------------------------+
+|  +---------------------+  |
+|  |  Landing Area (S3)  |  |
+|  +---------------------+  |
+|  | Cleansed / Enriched |  |
+|  |        (S3)         |  |
+|  +---------------------+  |
+|  | Analytics/Reporting |  |
+|  |        (S3)         |  |
+|  +---------------------+  |
++---------------------------+
+          |
+          v
++---------------------------+
+|     Data Processing      |
++---------------------------+
+| AWS Glue     | AWS Lambda |
++--------------+------------+
+          |
+          v
++-----------------------------------+
+| Data Catalogue & Classification  |
++-----------------------------------+
+|      AWS Glue Data Catalog       |
++-----------------------------------+
+          |
+          v
++---------------------------+
+|  Analytical Data Access   |
++---------------------------+
+| API  | AWS Athena | Redshift (Opt) |
++------+------------+---------------+
+          |
+          v
++---------------------+
+|   Source Systems   |
++---------------------+
+| Bulk (S3 API)      |
++---------------------+
+          |
+          v
++---------------------------+
+| AWS Step Functions        |
++---------------------------+
+          |
+          v
++---------------------------------+
+| AWS Identity & Access Mgmt     |
++---------------------------------+
+          |
+          v
++---------------------------+
+|  Monitoring / Alert       |
++---------------------------+
+| AWS Cloudwatch           |
++---------------------------+
+          |
+          v
++---------------------------+
+|   Target Systems         |
++---------------------------+
+|  Analytics               |
+|  - Power BI (Optional)   |
++---------------------------+
 
 
 ### 5. Reporting and Analytics
