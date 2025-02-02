@@ -37,7 +37,6 @@ This project aims to securely manage, streamline, and analyze structured and sem
 
 ### 5. Data Architecture
 
-graph TD;
     A[Source Systems] --> B[Bulk (S3 API)];
     B --> C[Data Lake];
     C --> C1[Landing Area (S3)];
