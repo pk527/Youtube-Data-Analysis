@@ -36,7 +36,6 @@ This project aims to securely manage, streamline, and analyze structured and sem
 - Redshift (optional) can be used for large-scale data storage and analysis.
 
 ### 5. Data Architecture
-# Our Data Architecture
 
 ## Data Flow Diagram
 Our Data Architecture
@@ -72,6 +71,9 @@ graph TD;
     style J fill:#ffb,stroke:#333,stroke-width:2px;
     style K fill:#fbb,stroke:#333,stroke-width:2px;
 ```
+## S3 bucket file import from terminal:
+# To copy all JSON Reference data to same location:
+aws s3 cp . s3://dataeng-on-youtube-raw-euwest2-vishw/youtube/raw_statistics_reference_data/ --recursive --exclude "*" --include "*.json"
 
 ### 5. Reporting and Analytics
 - Business intelligence tools such as QuickSight, Power BI, and Qlik generate insights.
