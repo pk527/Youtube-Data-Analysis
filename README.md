@@ -38,6 +38,53 @@ This project aims to securely manage, streamline, and analyze structured and sem
 
 ## Data Flow Diagram
 Our Data Architecture
+# Our Data Architecture
+
+## Data Flow
+```mermaid
+graph TD;
+    A[Source Systems] -->|Bulk| B[S3 API];
+    B --> C[S3 Landing Area];
+    C --> D[S3 Cleansed / Enriched];
+    D --> E[S3 Analytics / Reporting];
+
+    subgraph Data Processing
+        F[AWS Glue] --> G[AWS Glue Data Catalog];
+        F --> H[AWS Lambda];
+    end
+
+    E -->|Processed Data| DataProcessing;
+
+    subgraph Data Catalogue & Classification
+        G;
+    end
+
+    DataProcessing -->|Catalogued Data| I[AWS Athena];
+    I --> J[API];
+    J --> K[Analytical Data Access];
+
+    subgraph Monitoring / Alert
+        L[AWS CloudWatch];
+    end
+
+    subgraph Target Systems
+        M[Notebooks (Optional)];
+        N[QuickSight];
+        O[Power BI (Optional)];
+        P[Qlik];
+    end
+
+    K -->|Data Insights| TargetSystems;
+    L -->|Monitoring| TargetSystems;
+
+    subgraph AWS Identity & Access Management
+        IAM[AWS IAM];
+    end
+
+    IAM -.->|Access Control| B;
+    IAM -.->|Access Control| J;
+    IAM -.->|Access Control| K;
+
 
 ---
 
