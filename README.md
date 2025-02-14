@@ -87,10 +87,7 @@ graph TD;
         Q[Qlik];
     end
 
-    K -->|Data Insights| N;
-    K --> O;
-    K --> P;
-    K --> Q;
+
 
     %% IAM & Security
     subgraph AWS Identity & Access Management
