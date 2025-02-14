@@ -14,7 +14,7 @@ This project aims to securely manage, streamline, and analyze structured and sem
 ## Services Used
 - **Amazon S3** – Object storage for data lakes.
 - **AWS IAM** – Identity and Access Management.
-- **Amazon QuickSight** – Business intelligence and analytics.
+- **Power BI** – Business intelligence and analytics.
 - **AWS Glue** – Serverless ETL for data processing.
 - **AWS Lambda** – Compute service for data transformation, including JSON to Parquet conversion.
 - **AWS Athena** – Interactive querying of S3 data.
