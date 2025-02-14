@@ -41,42 +41,58 @@ Our Data Architecture
 # Our Data Architecture
 
 ## Data Flow
+# Our Data Architecture
+
+## Data Flow
 ```mermaid
 graph TD;
+    %% Source Systems
     A[Source Systems] -->|Bulk| B[S3 API];
-    B --> C[S3 Landing Area];
-    C --> D[S3 Cleansed / Enriched];
-    D --> E[S3 Analytics / Reporting];
 
-    subgraph Data Processing
-        F[AWS Glue] --> G[AWS Glue Data Catalog];
-        F --> H[AWS Lambda];
+    %% Data Platform
+    subgraph Data Platform
+        subgraph Data Lake
+            C[S3 Landing Area] --> D[S3 Cleansed / Enriched];
+            D --> E[S3 Analytics / Reporting];
+        end
+        subgraph Data Processing
+            F[AWS Glue] --> G[AWS Glue Data Catalog];
+            F --> H[AWS Lambda];
+        end
     end
 
-    E -->|Processed Data| DataProcessing;
+    %% AWS Step Functions
+    X[AWS Step Functions] -->|Triggers Processing| F;
 
-    subgraph Data Catalogue & Classification
-        G;
-    end
+    %% Data Flow Connections
+    B --> C;
+    E -->|Processed Data| F;
+    G -->|Catalogued Data| I[AWS Athena];
 
-    DataProcessing -->|Catalogued Data| I[AWS Athena];
+    %% Analytical Data Access
     I --> J[API];
     J --> K[Analytical Data Access];
+    K --> L[Redshift (Optional)];
 
+    %% Monitoring / Alert
     subgraph Monitoring / Alert
-        L[AWS CloudWatch];
+        M[AWS CloudWatch];
     end
 
+    %% Target Systems
     subgraph Target Systems
-        M[Notebooks (Optional)];
-        N[QuickSight];
-        O[Power BI (Optional)];
-        P[Qlik];
+        N[Notebooks (Optional)];
+        O[QuickSight];
+        P[Power BI (Optional)];
+        Q[Qlik];
     end
 
-    K -->|Data Insights| TargetSystems;
-    L -->|Monitoring| TargetSystems;
+    K -->|Data Insights| N;
+    K --> O;
+    K --> P;
+    K --> Q;
 
+    %% IAM & Security
     subgraph AWS Identity & Access Management
         IAM[AWS IAM];
     end
@@ -84,7 +100,7 @@ graph TD;
     IAM -.->|Access Control| B;
     IAM -.->|Access Control| J;
     IAM -.->|Access Control| K;
-
+```
 
 ---
 
