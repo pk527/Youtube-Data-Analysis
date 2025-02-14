@@ -33,44 +33,14 @@ This project aims to securely manage, streamline, and analyze structured and sem
 
 ### 4. Data Access
 - AWS Athena allows querying the structured dataset.
-- Redshift (optional) can be used for large-scale data storage and analysis.
 
 ### 5. Data Architecture
 
 ## Data Flow Diagram
 Our Data Architecture
-```mermaid
-graph TD;
-    A[Source Systems] -->|Bulk Load| B[S3 API];
-    B --> C[Data Lake];
-    C -->|Raw Data| D[S3 Landing Area];
-    C -->|Cleansed Data| E[S3 Cleansed / Enriched];
-    C -->|Analytics Data| F[S3 Analytics / Reporting];
 
-    D -->|Processing| G[AWS Glue];
-    E -->|Processing| G;
-    F -->|Processing| G;
-    G -->|Data Processing| H[AWS Lambda];
+---
 
-    H -->|Cataloging| I[AWS Glue Data Catalog];
-    I -->|Data Classification| J[Data Catalogue & Classification];
-
-    J -->|Query & Access| K[AWS Athena];
-    K -->|Optional| L[Redshift];
-
-    L -->|Visualization| M[Power BI];
-    
-
-    P[AWS Step Functions] -->|Orchestration| G;
-    Q[AWS IAM] -->|Access Management| J;
-    R[AWS CloudWatch] -->|Monitoring & Alerts| Q;
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px;
-    style C fill:#bbf,stroke:#333,stroke-width:2px;
-    style G fill:#bfb,stroke:#333,stroke-width:2px;
-    style J fill:#ffb,stroke:#333,stroke-width:2px;
-    style K fill:#fbb,stroke:#333,stroke-width:2px;
-```
 ## S3 bucket file import from terminal:
 # To copy all JSON Reference data to same location:
 aws s3 cp . s3://dataeng-on-youtube-raw-euwest2-vishw/youtube/raw_statistics_reference_data/ --recursive --exclude "*" --include "*.json"
