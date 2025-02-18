@@ -1,6 +1,6 @@
 # Data Engineering YouTube Analysis Project
 
-This project aims to build an end-to-end data engineering pipeline that ingests, processes, analyzes, and visualizes YouTube trending video data. By leveraging Amazon Web Services (AWS) for data processing and Power BI for data visualization, the project transforms raw data into actionable insights.
+The project aims to build an end-to-end data engineering pipeline that ingests, processes, analyzes, and visualizes YouTube trending video data. By leveraging Amazon Web Services (AWS) for data processing and Power BI for data visualization, the project transforms raw data into actionable insights.
 
 ## Project Overview
 
